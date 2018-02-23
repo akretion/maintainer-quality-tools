@@ -31,6 +31,11 @@ def has_test_errors(fname, dbname, odoo_version, check_loaded=True):
         'Mail delivery failed',
         'failed sending mail',
         ]
+
+    custom_errors_ignore = os.environ.get('ERRORS_IGNORE')
+    if custom_errors_ignore:
+        errors_ignore += custom_errors_ignore.split(";")
+
     errors_report = [
         lambda x: x['loglevel'] == 'CRITICAL',
         'At least one test failed',
